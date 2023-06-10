@@ -10,10 +10,20 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+
+  overflow: hidden;
 }
 
 #clock {
   display: flex;
+  border: red solid 1px;
+  height: 63px;
+}
+
+#clockReference {
+  position: absolute;
+
+  right: 100px;
 }
 
 .clockBar {
@@ -21,7 +31,8 @@ body {
   flex-direction: column;
   align-items: center;
 
-  margin: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
   background-color: rgb(59, 57, 57);
   width: 50px;
 
@@ -29,7 +40,8 @@ body {
 
   font-size: 50px;
   color: rgb(201, 201, 201);
-  font-family: 'Arial';
+  font-family: 'Dosis';
+  font-weight: 600;
 }
 
 .reduced {
@@ -40,7 +52,8 @@ body {
 .minutes,
 .seconds {
   display: flex;
-  margin: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
 
   justify-content: flex-start;
   align-items: flex-start;
