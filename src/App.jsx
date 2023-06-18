@@ -35,34 +35,9 @@ const App = function () {
 
   /* =============== SET REGULAR TIMER BLOCK CODE ============= */
 
-  setInterval(() => {
-    const updateTime = new Date();
-
-    setHours(concatZero(updateTime.getHours()));
-    setMinutes(concatZero(updateTime.getMinutes()));
-    setSeconds(concatZero(updateTime.getSeconds()));
-  }, 1000);
-
   setTimeout(() => {
     transitionMetric = '0.3s';
   }, 1000);
-
-  /* useEffect(() => {
-    firstTicMetric.tenHours =
-      (10 - time.getSeconds().toString().padStart(2, '0').slice(1)) * 1000;
-
-    firstTicMetric.hours =
-      (10 - time.getSeconds().toString().padStart(2, '0').slice(1)) * 1000;
-
-    firstTicMetric.tenMinutes =
-      (10 - time.getSeconds().toString().padStart(2, '0').slice(1)) * 1000;
-
-    firstTicMetric.minutes =
-      (10 - time.getSeconds().toString().padStart(2, '0').slice(1)) * 1000;
-
-    firstTicMetric.tenSeconds =
-      (10 - time.getSeconds().toString().padStart(2, '0').slice(1)) * 1000;
-  }, []); */
 
   /* ============== SET CLOCK BARS BLOCK CODE ============= */
 
@@ -378,10 +353,6 @@ const App = function () {
       </section>
 
       <section id="clock">
-        <p id="clockReference">
-          {hours}:{minutes}:{seconds}
-        </p>
-
         <article className="hours">
           <div
             id="tenHours"

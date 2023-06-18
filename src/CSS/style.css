@@ -32,12 +32,6 @@ body {
   overflow: hidden;
 }
 
-#clockReference {
-  position: absolute;
-
-  right: 50px;
-}
-
 .clockBar {
   display: flex;
   flex-direction: column;
@@ -70,4 +64,16 @@ body {
 
   justify-content: flex-start;
   align-items: flex-start;
+}
+
+@media only screen and (max-width: 500px) {
+  #clock {
+    transform: scale(0.7);
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  #clock {
+    transform: scale(0.5);
+  }
 }
