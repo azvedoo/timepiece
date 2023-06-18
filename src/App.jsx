@@ -3,6 +3,16 @@ import concatZero from './functions/concatZero';
 
 let positionMetric;
 let childTenNumbersMetric, childSixNumbersMetric, childThreeNumbersMetric;
+let transitionMetric = '';
+
+let intervalMetric = {
+  tenHours: '',
+  hours: '',
+  tenMinutes: '',
+  minutes: '',
+  tenSeconds: '',
+  seconds: '',
+};
 
 const App = function () {
   const unitSecondsRef = useRef(null);
@@ -33,6 +43,27 @@ const App = function () {
     setSeconds(concatZero(updateTime.getSeconds()));
   }, 1000);
 
+  setTimeout(() => {
+    transitionMetric = '0.3s';
+  }, 1000);
+
+  /* useEffect(() => {
+    firstTicMetric.tenHours =
+      (10 - time.getSeconds().toString().padStart(2, '0').slice(1)) * 1000;
+
+    firstTicMetric.hours =
+      (10 - time.getSeconds().toString().padStart(2, '0').slice(1)) * 1000;
+
+    firstTicMetric.tenMinutes =
+      (10 - time.getSeconds().toString().padStart(2, '0').slice(1)) * 1000;
+
+    firstTicMetric.minutes =
+      (10 - time.getSeconds().toString().padStart(2, '0').slice(1)) * 1000;
+
+    firstTicMetric.tenSeconds =
+      (10 - time.getSeconds().toString().padStart(2, '0').slice(1)) * 1000;
+  }, []); */
+
   /* ============== SET CLOCK BARS BLOCK CODE ============= */
 
   useEffect(() => {
@@ -49,85 +80,77 @@ const App = function () {
 
   /* ------- TEN HOURS USE EFFECT ------ */
 
-  useEffect(() => {
-    setInterval(() => {
-      setTenHoursPosition((prevPosition) => {
-        const currentPosition = parseInt(prevPosition.slice(0, -2));
-        if (
-          currentPosition < -(positionMetric * childThreeNumbersMetric - 10)
-        ) {
-          return '0px';
-        }
-        const position = currentPosition - positionMetric;
+  intervalMetric.tenHours = () => {
+    setTenHoursPosition((prevPosition) => {
+      const currentPosition = parseInt(prevPosition.slice(0, -2));
+      if (currentPosition < -(positionMetric * childThreeNumbersMetric - 10)) {
+        setInterval(intervalMetric.minutes(), 60000);
+        return '0px';
+      }
+      const position = currentPosition - positionMetric;
 
-        return position + 'px';
-      });
-    }, 36000000);
-  }, []);
+      return position + 'px';
+    });
+  };
 
   /* ------- UNIT HOURS USE EFFECT ------ */
 
-  useEffect(() => {
-    setInterval(() => {
-      setHoursPosition((prevPosition) => {
-        const currentPosition = parseInt(prevPosition.slice(0, -2));
-        if (currentPosition < -(positionMetric * childTenNumbersMetric - 10)) {
-          return '0px';
-        }
-        const position = currentPosition - positionMetric;
+  intervalMetric.hours = () => {
+    setHoursPosition((prevPosition) => {
+      const currentPosition = parseInt(prevPosition.slice(0, -2));
+      if (currentPosition < -(positionMetric * childTenNumbersMetric - 10)) {
+        setInterval(intervalMetric.tenHours(), 36000000);
+        return '0px';
+      }
+      const position = currentPosition - positionMetric;
 
-        return position + 'px';
-      });
-    }, 3600000);
-  }, []);
+      return position + 'px';
+    });
+  };
 
   /* ------- TEN MINUTES USE EFFECT ------ */
 
-  useEffect(() => {
-    setInterval(() => {
-      setTenMinutesPosition((prevPosition) => {
-        const currentPosition = parseInt(prevPosition.slice(0, -2));
-        if (currentPosition < -(positionMetric * childSixNumbersMetric - 10)) {
-          return '0px';
-        }
-        const position = currentPosition - positionMetric;
+  intervalMetric.tenMinutes = () => {
+    setTenMinutesPosition((prevPosition) => {
+      const currentPosition = parseInt(prevPosition.slice(0, -2));
+      if (currentPosition < -(positionMetric * childSixNumbersMetric - 10)) {
+        setInterval(intervalMetric.hours(), 3600000);
+        return '0px';
+      }
+      const position = currentPosition - positionMetric;
 
-        return position + 'px';
-      });
-    }, 600000);
-  }, []);
+      return position + 'px';
+    });
+  };
 
   /* ------- UNIT MINUTES USE EFFECT ------ */
 
-  useEffect(() => {
-    setInterval(() => {
-      setMinutesPosition((prevPosition) => {
-        const currentPosition = parseInt(prevPosition.slice(0, -2));
-        if (currentPosition < -(positionMetric * childTenNumbersMetric - 10)) {
-          return '0px';
-        }
-        const position = currentPosition - positionMetric;
+  intervalMetric.minutes = () => {
+    setMinutesPosition((prevPosition) => {
+      const currentPosition = parseInt(prevPosition.slice(0, -2));
+      if (currentPosition < -(positionMetric * childTenNumbersMetric - 10)) {
+        setInterval(intervalMetric.tenMinutes(), 600000);
+        return '0px';
+      }
+      const position = currentPosition - positionMetric;
 
-        return position + 'px';
-      });
-    }, 60000);
-  }, []);
+      return position + 'px';
+    });
+  };
 
   /* ------- TEN SECCONDS USE EFFECT ------ */
 
-  useEffect(() => {
-    setInterval(() => {
-      setTenSecondsPosition((prevPosition) => {
-        const currentPosition = parseInt(prevPosition.slice(0, -2));
-        if (currentPosition < -(positionMetric * childSixNumbersMetric - 10)) {
-          return '0px';
-        }
-        const position = currentPosition - positionMetric;
-
-        return position + 'px';
-      });
-    }, 10000);
-  }, []);
+  intervalMetric.tenSeconds = () => {
+    setTenSecondsPosition((prevPosition) => {
+      const currentPosition = parseInt(prevPosition.slice(0, -2));
+      if (currentPosition < -(positionMetric * childSixNumbersMetric - 10)) {
+        setInterval(intervalMetric.minutes(), 60000);
+        return '0px';
+      }
+      const position = currentPosition - positionMetric;
+      return position + 'px';
+    });
+  };
 
   /* ------- UNIT SECCONDS USE EFFECT ------ */
 
@@ -136,6 +159,7 @@ const App = function () {
       setSecondsPosition((prevPosition) => {
         const currentPosition = parseInt(prevPosition.slice(0, -2));
         if (currentPosition < -(positionMetric * childTenNumbersMetric - 10)) {
+          setInterval(intervalMetric.tenSeconds(), 10000);
           return '0px';
         }
         const position = currentPosition - positionMetric;
@@ -144,6 +168,8 @@ const App = function () {
       });
     }, 1000);
   }, []);
+
+  /* ================ LOAD PAGE DATA BLOCK CODE ============== */
 
   useEffect(() => {
     const updateTime = new Date();
@@ -214,125 +240,264 @@ const App = function () {
   /* ================= JSX HTML BLOCK CODE ============ */
 
   return (
-    <section id="clock">
-      <p id="clockReference">
-        {hours}:{minutes}:{seconds}
-      </p>
-      <article className="hours">
-        <div
-          id="tenHours"
-          ref={tenHoursRef}
-          className="clockBar reduced"
-          style={{
-            position: 'relative',
-            top: tenHoursPosition,
-            transition: '0.3s',
-          }}
-        >
-          <span>0</span>
-          <span>1</span>
-          <span>2</span>
-        </div>
-        <div
-          id="unitHour"
-          className="clockBar"
-          style={{
-            position: 'relative',
-            top: hoursPosition,
-            transition: '0.3s',
-          }}
-        >
-          <span>0</span>
-          <span>1</span>
-          <span>2</span>
-          <span>3</span>
-          <span>4</span>
-          <span>5</span>
-          <span>6</span>
-          <span>7</span>
-          <span>8</span>
-          <span>9</span>
-        </div>
-      </article>
-      <article className="minutes">
-        <div
-          id="tenMinutes"
-          ref={tenMinutesRef}
-          className="clockBar reduced"
-          style={{
-            position: 'relative',
-            top: tenMinutesPosition,
-            transition: '0.3s',
-          }}
-        >
-          <span>0</span>
-          <span>1</span>
-          <span>2</span>
-          <span>3</span>
-          <span>4</span>
-          <span>5</span>
-        </div>
-        <div
-          id="unitMinutes"
-          className="clockBar"
-          style={{
-            position: 'relative',
-            top: minutesPosition,
-            transition: '0.3s',
-          }}
-        >
-          <span>0</span>
-          <span>1</span>
-          <span>2</span>
-          <span>3</span>
-          <span>4</span>
-          <span>5</span>
-          <span>6</span>
-          <span>7</span>
-          <span>8</span>
-          <span>9</span>
-        </div>
-      </article>
-      <article className="seconds">
-        <div
-          id="tenSeconds"
-          className="clockBar reduced"
-          style={{
-            position: 'relative',
-            top: tenSecondsPosition,
-            transition: '0.3s',
-          }}
-        >
-          <span>0</span>
-          <span>1</span>
-          <span>2</span>
-          <span>3</span>
-          <span>4</span>
-          <span>5</span>
-        </div>
-        <div
-          id="unitSeconds"
-          ref={unitSecondsRef}
-          className="clockBar"
-          style={{
-            position: 'relative',
-            top: secondsPosition,
-            transition: '0.3s',
-          }}
-        >
-          <span>0</span>
-          <span>1</span>
-          <span>2</span>
-          <span>3</span>
-          <span>4</span>
-          <span>5</span>
-          <span>6</span>
-          <span>7</span>
-          <span>8</span>
-          <span>9</span>
-        </div>
-      </article>
-    </section>
+    <>
+      <section
+        id="clock"
+        style={{
+          position: 'absolute',
+          overflow: 'visible',
+          zIndex: -10,
+        }}
+      >
+        <article className="hours">
+          <div
+            id="tenHours"
+            ref={tenHoursRef}
+            className="clockBar reduced"
+            style={{
+              position: 'relative',
+              top: tenHoursPosition,
+              transition: transitionMetric,
+              color: '#ffffff08',
+              backgroundColor: '#43434300',
+            }}
+          >
+            <span>0</span>
+            <span>1</span>
+            <span>2</span>
+          </div>
+          <div
+            id="unitHour"
+            className="clockBar"
+            style={{
+              position: 'relative',
+              top: hoursPosition,
+              transition: transitionMetric,
+              color: '#ffffff08',
+              backgroundColor: '#43434300',
+            }}
+          >
+            <span>0</span>
+            <span>1</span>
+            <span>2</span>
+            <span>3</span>
+            <span>4</span>
+            <span>5</span>
+            <span>6</span>
+            <span>7</span>
+            <span>8</span>
+            <span>9</span>
+          </div>
+        </article>
+        <article className="minutes">
+          <div
+            id="tenMinutes"
+            ref={tenMinutesRef}
+            className="clockBar reduced"
+            style={{
+              position: 'relative',
+              top: tenMinutesPosition,
+              transition: transitionMetric,
+              color: '#ffffff08',
+              backgroundColor: '#43434300',
+            }}
+          >
+            <span>0</span>
+            <span>1</span>
+            <span>2</span>
+            <span>3</span>
+            <span>4</span>
+            <span>5</span>
+          </div>
+          <div
+            id="unitMinutes"
+            className="clockBar"
+            style={{
+              position: 'relative',
+              top: minutesPosition,
+              transition: transitionMetric,
+              color: '#ffffff08',
+              backgroundColor: '#43434300',
+            }}
+          >
+            <span>0</span>
+            <span>1</span>
+            <span>2</span>
+            <span>3</span>
+            <span>4</span>
+            <span>5</span>
+            <span>6</span>
+            <span>7</span>
+            <span>8</span>
+            <span>9</span>
+          </div>
+        </article>
+        <article className="seconds">
+          <div
+            id="tenSeconds"
+            className="clockBar reduced"
+            style={{
+              position: 'relative',
+              top: tenSecondsPosition,
+              transition: transitionMetric,
+              color: '#ffffff08',
+              backgroundColor: '#43434300',
+            }}
+          >
+            <span>0</span>
+            <span>1</span>
+            <span>2</span>
+            <span>3</span>
+            <span>4</span>
+            <span>5</span>
+          </div>
+          <div
+            id="unitSeconds"
+            ref={unitSecondsRef}
+            className="clockBar"
+            style={{
+              position: 'relative',
+              top: secondsPosition,
+              transition: transitionMetric,
+              color: '#ffffff08',
+              backgroundColor: '#43434300',
+            }}
+          >
+            <span>0</span>
+            <span>1</span>
+            <span>2</span>
+            <span>3</span>
+            <span>4</span>
+            <span>5</span>
+            <span>6</span>
+            <span>7</span>
+            <span>8</span>
+            <span>9</span>
+          </div>
+        </article>
+      </section>
+
+      <section id="clock">
+        <p id="clockReference">
+          {hours}:{minutes}:{seconds}
+        </p>
+
+        <article className="hours">
+          <div
+            id="tenHours"
+            ref={tenHoursRef}
+            className="clockBar reduced"
+            style={{
+              position: 'relative',
+              top: tenHoursPosition,
+              transition: transitionMetric,
+            }}
+          >
+            <span>0</span>
+            <span>1</span>
+            <span>2</span>
+          </div>
+          <div
+            id="unitHour"
+            className="clockBar"
+            style={{
+              position: 'relative',
+              top: hoursPosition,
+              transition: transitionMetric,
+            }}
+          >
+            <span>0</span>
+            <span>1</span>
+            <span>2</span>
+            <span>3</span>
+            <span>4</span>
+            <span>5</span>
+            <span>6</span>
+            <span>7</span>
+            <span>8</span>
+            <span>9</span>
+          </div>
+        </article>
+        <article className="minutes">
+          <div
+            id="tenMinutes"
+            ref={tenMinutesRef}
+            className="clockBar reduced"
+            style={{
+              position: 'relative',
+              top: tenMinutesPosition,
+              transition: transitionMetric,
+            }}
+          >
+            <span>0</span>
+            <span>1</span>
+            <span>2</span>
+            <span>3</span>
+            <span>4</span>
+            <span>5</span>
+          </div>
+          <div
+            id="unitMinutes"
+            className="clockBar"
+            style={{
+              position: 'relative',
+              top: minutesPosition,
+              transition: transitionMetric,
+            }}
+          >
+            <span>0</span>
+            <span>1</span>
+            <span>2</span>
+            <span>3</span>
+            <span>4</span>
+            <span>5</span>
+            <span>6</span>
+            <span>7</span>
+            <span>8</span>
+            <span>9</span>
+          </div>
+        </article>
+        <article className="seconds">
+          <div
+            id="tenSeconds"
+            className="clockBar reduced"
+            style={{
+              position: 'relative',
+              top: tenSecondsPosition,
+              transition: transitionMetric,
+            }}
+          >
+            <span>0</span>
+            <span>1</span>
+            <span>2</span>
+            <span>3</span>
+            <span>4</span>
+            <span>5</span>
+          </div>
+          <div
+            id="unitSeconds"
+            ref={unitSecondsRef}
+            className="clockBar"
+            style={{
+              position: 'relative',
+              top: secondsPosition,
+              transition: transitionMetric,
+            }}
+          >
+            <span>0</span>
+            <span>1</span>
+            <span>2</span>
+            <span>3</span>
+            <span>4</span>
+            <span>5</span>
+            <span>6</span>
+            <span>7</span>
+            <span>8</span>
+            <span>9</span>
+          </div>
+        </article>
+      </section>
+    </>
   );
 };
 
