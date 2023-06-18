@@ -1,10 +1,18 @@
+:root {
+  --mainColor: #60a2ae;
+  --lightColor: #545454;
+  --darkColor: rgb(0, 0, 0, 0.4);
+
+  --textColor: rgba(255, 255, 255, 0.5);
+}
+
 * {
   padding: 0;
   margin: 0;
 }
 
 body {
-  background-color: rgb(239, 238, 236);
+  background-color: #282828;
   height: 100vh;
 
   display: flex;
@@ -12,18 +20,22 @@ body {
   align-items: center;
 
   overflow: hidden;
+  user-select: none;
 }
 
 #clock {
   display: flex;
-  border: red solid 1px;
+  border-radius: 10px;
+
+  /*  border: 7px solid #282828; */
   height: 63px;
+  overflow: hidden;
 }
 
 #clockReference {
   position: absolute;
 
-  right: 100px;
+  right: 50px;
 }
 
 .clockBar {
@@ -33,13 +45,14 @@ body {
 
   margin-left: 5px;
   margin-right: 5px;
-  background-color: rgb(59, 57, 57);
+  background-color: var(--mainColor);
   width: 50px;
 
-  border-radius: 300px;
+  border-style: none;
+  box-shadow: 5px 5px 10px var(--darkColor);
 
   font-size: 50px;
-  color: rgb(201, 201, 201);
+  color: var(--textColor);
   font-family: 'Dosis';
   font-weight: 600;
 }
@@ -52,8 +65,8 @@ body {
 .minutes,
 .seconds {
   display: flex;
-  margin-left: 10px;
-  margin-right: 10px;
+  margin-left: 20px;
+  margin-right: 20px;
 
   justify-content: flex-start;
   align-items: flex-start;
