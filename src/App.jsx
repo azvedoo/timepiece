@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import concatZero from './functions/concatZero';
+import Github from './svg/Github';
+import Pallete from './svg/Pallete';
 
 let positionMetric;
 let childTenNumbersMetric, childSixNumbersMetric, childThreeNumbersMetric;
@@ -467,6 +469,21 @@ const App = function () {
             <span>9</span>
           </div>
         </article>
+
+        <article id="colorPallete">
+          <div className="buttonBackground">
+            <Pallete /> 
+          </div>
+        </article>
+
+        <article id="devInfo">
+          <div className="buttonBackground">
+            <a href="https://github.com/gregorioazevedo">
+              <Github /> 
+            </a>
+          </div>
+        </article>
+
       </section>
     </>
   );
