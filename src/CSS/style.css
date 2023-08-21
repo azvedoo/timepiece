@@ -1,14 +1,26 @@
 :root {
-  --mainColor: #60a2ae;
+  --mainColor: 96, 162, 174;
   --lightColor: #545454;
   --darkColor: rgb(0, 0, 0, 0.4);
 
   --textColor: rgba(255, 255, 255, 0.5);
+  --lighIconColor: rgba(255, 255, 255, 0.5);
+  --darkIconColor: rgba(var(--mainColor), 0.5);
 }
 
 * {
   padding: 0;
   margin: 0;
+}
+
+span{
+  height: 63px;
+}
+
+a{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 body {
@@ -25,11 +37,13 @@ body {
 
 #clock {
   display: flex;
+  position: relative;
   border-radius: 10px;
 
   /*  border: 7px solid #282828; */
   height: 63px;
   overflow: hidden;
+  padding-inline: 60px;
 }
 
 .clockBar {
@@ -39,7 +53,7 @@ body {
 
   margin-left: 5px;
   margin-right: 5px;
-  background-color: var(--mainColor);
+  background-color: rgb(var(--mainColor));
   width: 50px;
 
   border-style: none;
@@ -64,6 +78,45 @@ body {
 
   justify-content: flex-start;
   align-items: flex-start;
+}
+
+#colorPallete{
+  position: absolute;
+  display: flex;
+  top: 50%;
+  left: 16px;
+  transform: translateY(-50%);
+}
+
+#devInfo{
+  display: flex;
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  transform: translateY(-50%);
+}
+
+#gitHubIcon,
+#collorPalleteIcon{
+  height: 80%;
+  width: 80%;
+  
+  fill: var(--textColor);
+  border-radius: 50%;
+}
+
+.buttonBackground{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 35px;
+  width: 35px;
+  
+  border-radius: 50%;
+  
+  box-shadow: 5px 5px 7px var(--darkColor);
+  background-color: var(--darkIconColor);
 }
 
 @media only screen and (max-width: 500px) {
